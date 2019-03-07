@@ -26,26 +26,30 @@ class Chat extends Component {
     render() {
         return (
             <Content style={{ width: '100%' }}>
-                <Card ref={(el) => { this.messagesEnd = el; }} style={{ width: '50%', height: '500px', borderRadius: '5px', overflow: 'auto' }}>
-                    {Object.keys(this.props.messages).map((message, index) => {
-                        return (
-                            <Message
-                                key={index}
-                                meh={this.props.messages[message]["sender"] === localStorage.getItem('@WebChat:nickname')}
-                                author={this.props.messages[message]["sender"]}
-                                message={this.props.messages[message]["msg"]}
-                            />
-                        )
-                    })}
-                </Card>
+                <Row>
+                    <Col xs={12} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }}>
+                        <Card ref={(el) => { this.messagesEnd = el; }} style={{ height: '500px', borderRadius: '5px', overflow: 'auto' }}>
+                            {Object.keys(this.props.messages).map((message, index) => {
+                                return (
+                                    <Message
+                                        key={index}
+                                        meh={this.props.messages[message]["sender"] === localStorage.getItem('@WebChat:nickname')}
+                                        author={this.props.messages[message]["sender"]}
+                                        message={this.props.messages[message]["msg"]}
+                                    />
+                                )
+                            })}
+                        </Card>
 
-                <Card style={{ width: '50%', marginTop: 5, background: '#F1F1F1', borderRadius: '5px' }}>
-                    <Row>
-                        <Col>
-                            <Input value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." autosize />
-                        </Col>
-                    </Row>
-                </Card>
+                        <Card style={{ marginTop: 5, background: '#F1F1F1', borderRadius: '5px' }}>
+                            <Row>
+                                <Col>
+                                    <Input value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." autosize />
+                                </Col>
+                            </Row>
+                        </Card>
+                    </Col>
+                </Row>
             </Content>
         )
     }
@@ -69,10 +73,10 @@ const Card = styled.div`
 
 
 const Content = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
 `
 
 export default Chat

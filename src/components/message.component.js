@@ -16,21 +16,23 @@ var stringToColour = function (str) {
 }
 
 const Message = (props) => (
-    <MessageBody meh={props.meh} author={props.author}>
-        <MessageAuthor>
-            <AvatarUser user={props.author} style={{ background: 'white', marginRight: '10px' }} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            <b>{props.author}</b>
-        </MessageAuthor>
-        <MessageContent>
-            <p>{props.message}</p>
-        </MessageContent>
-    </MessageBody>
+    <div style={{ width: '100%', float: 'left'}}>
+        <MessageBody meh={props.meh} author={props.author}>
+            <MessageAuthor>
+                <AvatarUser user={props.author} style={{ background: 'white', marginRight: '10px' }} src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                <b>{props.author}</b>
+            </MessageAuthor>
+            <MessageContent>
+                <p>{props.message}</p>
+            </MessageContent>
+        </MessageBody>
+    </div>
 )
 
 const MessageBody = styled.div`
     background:  ${props => props.meh ? '#F1F1F1' : !!localStorage.getItem("@WebChat:nickname") ? stringToColour(props.author) : '#40a9ff'};
-    width: 70%;
     border-radius: 5px;
+    max-width: 51%;
     padding: 10px;
     margin-bottom: 10px;
     float:  ${props => props.meh ? 'right' : 'left'};
