@@ -26,9 +26,9 @@ class Chat extends Component {
     render() {
         return (
             <Content style={{ width: '100%' }}>
-                <Row>
-                    <Col xs={12} sm={{ size: 10, offset: 1 }} md={{ size: 8, offset: 2 }}>
-                        <Card ref={(el) => { this.messagesEnd = el; }} style={{ height: '500px', borderRadius: '5px', overflow: 'auto' }}>
+                <Row style={{padding: '5px'}}>
+                    <Col sm={12} md={{ size: 6, offset: 3 }}>
+                        <Card ref={(el) => { this.messagesEnd = el; }} style={{ height: '350px', borderRadius: '5px', overflow: 'auto' }}>
                             {Object.keys(this.props.messages).map((message, index) => {
                                 return (
                                     <Message
