@@ -18,30 +18,26 @@ class Chat extends Component {
 
         this.handleNewMessages = snap => {
             console.log(snap.val());
-            // if not null then update state
             if (snap.val()) this.setState({ messages: snap.val() });
         }
     }
 
     componentDidMount() {
-        // subscribe
         this.chatRoom.on('value', this.handleNewMessages)
     }
     componentWillUnmount() {
-        // unsubscribe
         this.chatRoom.off('value', this.handleNewMessages)
     }
 
     handleMsgChange = e => this.setState({ msg: e.target.value })
     handleKeyDown = e => {
-        if (e.key === "Enter" && this.msg.length) {
-            // send the msg
+        if (e.key === 'Enter' && this.state.msg.length) {
             this.chatRoom.push({
                 sender: this.state.nickname,
                 msg: this.state.msg,
             });
-            // clear the field
-            this.setState({ msg: "" })
+
+            this.setState({ msg: '' })
         }
     }
 

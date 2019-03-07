@@ -3,20 +3,34 @@ import styled from 'styled-components'
 import Message from './message.component'
 import { Col, Row } from 'reactstrap'
 import { Input } from 'antd'
-const { TextArea } = Input
+import ReactDOM from 'react-dom';
 
 class Chat extends Component {
     state = {
         loading: false
     }
 
+    scrollToBottom = () => {
+        const messagesContainer = ReactDOM.findDOMNode(this.messagesEnd);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
     render() {
         return (
             <Content style={{ width: '100%' }}>
-                <Card style={{ width: '50%', height: '500px', borderRadius: '5px', overflow: 'auto' }}>
-                    {Object.keys(this.props.messages).map(message => {
+                <Card ref={(el) => { this.messagesEnd = el; }} style={{ width: '50%', height: '500px', borderRadius: '5px', overflow: 'auto' }}>
+                    {Object.keys(this.props.messages).map((message, index) => {
                         return (
                             <Message
+                                key={index}
                                 meh={this.props.messages[message]["sender"] === localStorage.getItem('@WebChat:nickname')}
                                 author={this.props.messages[message]["sender"]}
                                 message={this.props.messages[message]["msg"]}
@@ -28,7 +42,7 @@ class Chat extends Component {
                 <Card style={{ width: '50%', marginTop: 5, background: '#F1F1F1', borderRadius: '5px' }}>
                     <Row>
                         <Col>
-                            <TextArea value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." autosize />
+                            <Input value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." autosize />
                         </Col>
                     </Row>
                 </Card>
