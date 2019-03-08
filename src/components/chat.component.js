@@ -44,7 +44,7 @@ class Chat extends Component {
                         <Card style={{ marginTop: 5, background: '#F1F1F1', borderRadius: '5px' }}>
                             <Row>
                                 <Col>
-                                    <Input value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." autosize />
+                                    <Input value={this.props.valueMsg} onChange={this.props.handleMsgChange} onKeyDown={this.props.handleKeyDown} style={{ width: '100%' }} placeholder="Escreva sua mensagem..." />
                                 </Col>
                             </Row>
                         </Card>

@@ -17,14 +17,30 @@ class Chat extends Component {
         this.chatRoom = db.ref().child('chat').child('global')
 
         this.handleNewMessages = snap => {
-            console.log(snap.val());
-            if (snap.val()) this.setState({ messages: snap.val() });
+            // console.log(snap.val())
+            if (snap.val()) {
+                console.log('aa',this.state.messages)
+                if (Object.entries(this.state.messages).length !== 0 && this.state.messages.constructor === Object) {
+                    if (Notification.permission !== "granted")
+                        Notification.requestPermission();
+                    else {
+                        new Notification('Web Chat Firebase', {
+                            body: `Nova mensagem de: ${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['sender']}
+${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['msg']}`,
+                        });
+                    }
+                }
+
+                this.setState({ messages: snap.val() })
+                console.log('ab',this.state.messages.length)
+            }
         }
     }
 
     componentDidMount() {
         this.chatRoom.on('value', this.handleNewMessages)
     }
+
     componentWillUnmount() {
         this.chatRoom.off('value', this.handleNewMessages)
     }
