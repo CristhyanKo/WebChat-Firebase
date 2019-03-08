@@ -19,20 +19,25 @@ class Chat extends Component {
         this.handleNewMessages = snap => {
             // console.log(snap.val())
             if (snap.val()) {
-                console.log('aa',this.state.messages)
-                if (Object.entries(this.state.messages).length !== 0 && this.state.messages.constructor === Object) {
-                    if (Notification.permission !== "granted")
-                        Notification.requestPermission();
-                    else {
-                        new Notification('Web Chat Firebase', {
-                            body: `Nova mensagem de: ${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['sender']}
-${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['msg']}`,
-                        });
-                    }
+                if (Object.entries(this.state.messages).length !== 0 && this.state.messages.constructor === Object && snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['sender'] !== localStorage.getItem('@WebChat:nickname')) {
+                    Notification.requestPermission(function (result) {
+                        if (result === 'granted') {
+                            // navigator.serviceWorker.ready.then(function (registration) {
+                            //     registration.showNotification(`Nova mensagem de: ${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['sender']}`, {
+                            //         body: `${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['msg']}`,
+                            //     })
+                            // })
+                            var notify = new Notification(`Nova mensagem de: ${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['sender']}`,
+                                                            {body: `${snap.val()[Object.keys(snap.val())[Object.keys(snap.val()).length - 1]]['msg']}`})
+                            notify.onclick = (e) => {
+                                e.preventDefault()
+                                window.focus()
+                            }
+                        }
+                    })
                 }
 
                 this.setState({ messages: snap.val() })
-                console.log('ab',this.state.messages.length)
             }
         }
     }
